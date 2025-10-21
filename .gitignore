@@ -1,0 +1,25 @@
+# Ignore all log files
+*.log
+
+# Ignore the build directory
+/build/
+
+# Ignore the node_modules directory
+backend/node_modules/
+frontend/node_modules/
+
+# Ignore all .env files
+*.env
+
+# Ignore a specific file
+config.ini
+
+backend/old dbs
+
+# Don't ignore important.log within a directory where other log files are ignored
+!important.log
+
+.hintrc
+
+.DS_Store
+
