@@ -1,5 +1,10 @@
 // src/api/masterData.ts
-const API_BASE_URL = "http://localhost:5000/api";
+// At the very top of each API file:
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+// For routes that use /api
+const API_BASE = `${API_BASE_URL}/api`;
 
 const getAuthToken = () => {
   return localStorage.getItem("token") || "";
@@ -64,7 +69,7 @@ export interface Warehouse {
 export const masterDataApi = {
   // Get all clients
   async getClients(): Promise<Client[]> {
-    const response = await fetch(`${API_BASE_URL}/clients`, {
+    const response = await fetch(`${API_BASE}/clients`, {
       headers: getHeaders(),
     });
     if (!response.ok) throw new Error("Failed to fetch clients");
@@ -73,7 +78,7 @@ export const masterDataApi = {
 
   // Get all service types
   async getServiceTypes(): Promise<ServiceType[]> {
-    const response = await fetch(`${API_BASE_URL}/service-types`, {
+    const response = await fetch(`${API_BASE}/service-types`, {
       headers: getHeaders(),
     });
     if (!response.ok) throw new Error("Failed to fetch service types");
@@ -82,7 +87,7 @@ export const masterDataApi = {
 
   // Get all ports
   async getPorts(): Promise<Port[]> {
-    const response = await fetch(`${API_BASE_URL}/ports`, {
+    const response = await fetch(`${API_BASE}/ports`, {
       headers: getHeaders(),
     });
     if (!response.ok) throw new Error("Failed to fetch ports");
@@ -91,7 +96,7 @@ export const masterDataApi = {
 
   // Get all currencies
   async getCurrencies(): Promise<Currency[]> {
-    const response = await fetch(`${API_BASE_URL}/currencies`, {
+    const response = await fetch(`${API_BASE}/currencies`, {
       headers: getHeaders(),
     });
     if (!response.ok) throw new Error("Failed to fetch currencies");
@@ -100,7 +105,7 @@ export const masterDataApi = {
 
   // Get all warehouses
   async getWarehouses(): Promise<Warehouse[]> {
-    const response = await fetch(`${API_BASE_URL}/warehouses`, {
+    const response = await fetch(`${API_BASE}/warehouses`, {
       headers: getHeaders(),
     });
     if (!response.ok) throw new Error("Failed to fetch warehouses");
@@ -109,7 +114,7 @@ export const masterDataApi = {
 
   // Get service rates
   async getServiceRates(): Promise<any[]> {
-    const response = await fetch(`${API_BASE_URL}/service-rates`, {
+    const response = await fetch(`${API_BASE}/service-rates`, {
       headers: getHeaders(),
     });
     if (!response.ok) throw new Error("Failed to fetch service rates");

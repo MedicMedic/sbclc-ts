@@ -1,4 +1,9 @@
-const API_BASE = "http://localhost:5000/api";
+// At the very top of each API file:
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+// For routes that use /api
+const API_BASE = `${API_BASE_URL}/api`;
 
 export interface QuotationItem {
   id?: string;
