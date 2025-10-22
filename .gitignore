@@ -23,3 +23,29 @@ backend/old dbs
 
 .DS_Store
 
+# Compiled output
+dist/
+out/
+*.tsbuildinfo
+
+# Package managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.swp
+
+# OS-specific
+Thumbs.db
+
+# Python or other backend languages (if relevant)
+__pycache__/
+*.pyc
+
+
