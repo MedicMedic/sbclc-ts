@@ -1,7 +1,7 @@
-// approvals-api.ts - FIXED VERSION matching server endpoints
 import axios from 'axios';
+import { getApiBase } from './config';
 
-const baseUrl = import.meta.env.VITE_API_URL;
+const baseUrl = getApiBase();
 
 // Create axios instance with auth token
 const apiClient = axios.create({
@@ -181,7 +181,7 @@ export const approveQuotation = async (
   comments?: string,
   isOverride: boolean = false
 ): Promise<void> => {
-  console.log(`🔄 API: Approving quotation ${id}${isOverride ? ' (OVERRIDE)' : ''}...`);
+  console.log(`📄 API: Approving quotation ${id}${isOverride ? ' (OVERRIDE)' : ''}...`);
   const response = await apiClient.post(`/api/approvals/quotation/${id}/approve`, { 
     comments,
     isOverride 
@@ -198,7 +198,7 @@ export const rejectQuotation = async (
   if (!comments || !comments.trim()) {
     throw new Error('Rejection reason is required');
   }
-  console.log(`🔄 API: Rejecting quotation ${id}${isOverride ? ' (OVERRIDE)' : ''}...`);
+  console.log(`📄 API: Rejecting quotation ${id}${isOverride ? ' (OVERRIDE)' : ''}...`);
   const response = await apiClient.post(`/api/approvals/quotation/${id}/reject`, { 
     comments,
     isOverride 
@@ -214,7 +214,7 @@ export const getApprovalHistory = async (id: string): Promise<ApprovalHistory[]>
 
 // Submit quotation for approval (helper function)
 export const submitQuotationForApproval = async (id: string): Promise<void> => {
-  await apiClient.put(`/api/quotations/${id}`, { status: 'pending_approval' });
+  await apiClient.put(`/quotations/${id}`, { status: 'pending_approval' });
 };
 
 export default {

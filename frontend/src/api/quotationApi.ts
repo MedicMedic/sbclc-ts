@@ -1,9 +1,7 @@
-// At the very top of each API file:
-const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000";
+// ==================== FILE 6: src/api/quotationApi.ts ====================
+import { getApiBase } from "./config";
 
-// For routes that use /api
-const API_BASE = `${API_BASE_URL}/api`;
+const API_BASE = getApiBase();
 
 export interface QuotationItem {
   id?: string;
@@ -62,7 +60,7 @@ export interface Quotation {
 }
 
 export const fetchQuotations = async (): Promise<Quotation[]> => {
-  const response = await fetch(`${API_BASE}/quotations`);
+  const response = await fetch(`${API_BASE}/api/quotations`);
   if (!response.ok) {
     throw new Error("Failed to fetch quotations");
   }
@@ -70,7 +68,7 @@ export const fetchQuotations = async (): Promise<Quotation[]> => {
 };
 
 export const fetchQuotationById = async (id: number): Promise<Quotation> => {
-  const response = await fetch(`${API_BASE}/quotations/${id}`);
+  const response = await fetch(`${API_BASE}/api/quotations/${id}`);
   if (!response.ok) {
     throw new Error("Failed to fetch quotation");
   }
@@ -78,7 +76,7 @@ export const fetchQuotationById = async (id: number): Promise<Quotation> => {
 };
 
 export const fetchQuotationStats = async () => {
-  const response = await fetch(`${API_BASE}/quotations/stats/summary`);
+  const response = await fetch(`${API_BASE}/api/quotations/stats/summary`);
   if (!response.ok) {
     throw new Error("Failed to fetch stats");
   }
@@ -167,7 +165,7 @@ export const createQuotation = async (quotation: Quotation, action: "save" | "su
     })) || [],
   };
 
-  const response = await fetch(`${API_BASE}/quotations`, {
+  const response = await fetch(`${API_BASE}/api/quotations`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -221,7 +219,7 @@ export const updateQuotation = async (id: number, quotation: Quotation, action: 
     })) || [],
   };
 
-  const response = await fetch(`${API_BASE}/quotations/${id}`, {
+  const response = await fetch(`${API_BASE}/api/quotations/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -236,7 +234,7 @@ export const updateQuotation = async (id: number, quotation: Quotation, action: 
 };
 
 export const deleteQuotation = async (id: number) => {
-  const response = await fetch(`${API_BASE}/quotations/${id}`, {
+  const response = await fetch(`${API_BASE}/api/quotations/${id}`, {
     method: "DELETE",
   });
 
@@ -249,7 +247,7 @@ export const deleteQuotation = async (id: number) => {
 };
 
 export const approveQuotation = async (id: number, approvedBy: string) => {
-  const response = await fetch(`${API_BASE}/quotations/${id}/approve`, {
+  const response = await fetch(`${API_BASE}/api/quotations/${id}/approve`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ approvedBy }),
@@ -264,7 +262,7 @@ export const approveQuotation = async (id: number, approvedBy: string) => {
 };
 
 export const rejectQuotation = async (id: number, rejectionReason: string) => {
-  const response = await fetch(`${API_BASE}/quotations/${id}/reject`, {
+  const response = await fetch(`${API_BASE}/api/quotations/${id}/reject`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ rejectionReason }),

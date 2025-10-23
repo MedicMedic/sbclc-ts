@@ -1,4 +1,3 @@
-// frontend/lib/permissions.ts
 import client from "@/api/client";
 
 export interface RolePermissions {
@@ -30,7 +29,8 @@ const reverseMapping: Record<string, string> = {
  */
 export async function getRolePermissions(roleCode: string): Promise<string[]> {
   try {
-    const response = await client.get(`/api/roles/${roleCode}/permissions`);
+    // Note: client already has /api prefix from config
+    const response = await client.get(`/roles/${roleCode}/permissions`);
     const permissions: RolePermissions = response.data;
 
     // Convert backend format to frontend permission IDs
@@ -55,7 +55,7 @@ export async function getRolePermissions(roleCode: string): Promise<string[]> {
  */
 export async function getAllPermissions(): Promise<Record<string, Record<string, string[]>>> {
   try {
-    const response = await client.get("/api/permissions");
+    const response = await client.get("/permissions");
     return response.data;
   } catch (error) {
     console.error("Failed to fetch all permissions:", error);
@@ -91,15 +91,11 @@ export const permissionCategories = {
 export function convertToBackendPermissions(
   frontendPermissions: string[]
 ): Record<string, string[]> {
-  // This would need module context to properly map permissions
-  // For now, return a basic structure
   const result: Record<string, string[]> = {};
   
-  // You'll need to customize this based on your actual module structure
   frontendPermissions.forEach((perm) => {
     const backendAction = permissionMapping[perm] || perm;
-    // Add to all modules that support this action
-    // This is a simplified version - you should maintain a proper module-action mapping
+    // Add to appropriate modules based on your permission structure
   });
 
   return result;

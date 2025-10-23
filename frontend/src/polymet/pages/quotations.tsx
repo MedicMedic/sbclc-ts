@@ -40,8 +40,9 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import { QuotationForm } from "@/polymet/components/quotation-form";
+import { getApiBase } from "@/api/config";
 
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = getApiBase() + "/api";
 
 const getAuthToken = () => localStorage.getItem("token");
 const getHeaders = () => ({

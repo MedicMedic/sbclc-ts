@@ -1,8 +1,8 @@
-// frontend/api/client.ts
 import axios from "axios";
+import { getApiBase } from "./config";
 
 export const client = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+  baseURL: getApiBase(), // Will be: http://localhost:5000/api or http://your-vps-ip/api
   headers: { "Content-Type": "application/json" },
 });
 
@@ -15,7 +15,6 @@ client.interceptors.request.use((config) => {
   }
   return config;
 });
-
 
 client.interceptors.response.use(
   (res) => res,

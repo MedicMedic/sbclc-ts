@@ -11,28 +11,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-
-// Environment
-const isProduction = process.env.NODE_ENV === "production";
-
-// Port logic
-const PORT = process.env.PORT
-  ? parseInt(process.env.PORT)
-  : isProduction
-  ? 80
-  : 5000;
-
-// CORS logic
-const allowedOrigin = isProduction
-  ? process.env.CORS_ORIGIN || "http://151.106.125.18"
-  : "http://localhost:5173"; // change if your frontend uses another port
-
-app.use(cors({ origin: allowedOrigin, credentials: true }));
+app.use(cors());
 app.use(express.json());
 
-// Serve uploaded files (avatars, etc.)
-app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 const SECRET = process.env.JWT_SECRET || "supersecret";
+const PORT = process.env.PORT ? parseInt(process.env.PORT) : 5000;
 
 // -----------------------------
 // Database
@@ -2870,15 +2853,10 @@ app.get("/api/approval_matrix/:id", verifyToken, (req, res) => {
 // -----------------------------
 app.get("/health", (_req, res) => res.json({ status: "ok" }));
 app.get("/", (_req, res) => res.json({ message: "SBCLC API - ready" }));
-app.get("/", (_req, res) => {
-  res.send("✅ Server running on Hostinger VPS");
-});
-
 
 // -----------------------------
 // Start server
 // -----------------------------
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Server running on http://151.106.125.18:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server listening on port ${PORT}`);
 });
-

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookingForm } from "@/polymet/components/booking-form";
 import { EnhancedImportBookingForm } from "@/polymet/components/enhanced-import-booking-form";
 
 import {
@@ -34,8 +33,6 @@ export function ImportBookingPage() {
   const [activeTab, setActiveTab] = useState("list");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBooking, setSelectedBooking] = useState<any>(null);
-
-  const [showSidebar, setShowSidebar] = useState(false);
 
   const importBookings = bookings.filter(
     (booking) =>

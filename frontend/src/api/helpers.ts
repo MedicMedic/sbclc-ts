@@ -1,6 +1,4 @@
-// frontend/api/helpers.ts
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+import { buildAssetUrl } from "./config";
 
 /**
  * Converts a relative avatar path to a full URL
@@ -17,18 +15,6 @@ export function getAvatarUrl(avatarPath?: string | null): string {
     return avatarPath;
   }
 
-  // If it's a relative path starting with /uploads, prepend the base URL
-  if (avatarPath.startsWith("/uploads")) {
-    return `${API_BASE_URL}${avatarPath}`;
-  }
-
-  // Otherwise, return as is (might be a data URL or other format)
-  return avatarPath;
-}
-
-/**
- * Gets the base API URL
- */
-export function getApiBaseUrl(): string {
-  return API_BASE_URL;
+  // Use the centralized asset URL builder
+  return buildAssetUrl(avatarPath);
 }
